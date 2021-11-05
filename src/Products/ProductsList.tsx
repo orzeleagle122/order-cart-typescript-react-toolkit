@@ -1,4 +1,6 @@
 import React, {FC, useState} from 'react';
+import {useSelector} from "react-redux";
+import {getProductsSelector} from "../redux/slices/products.slice";
 
 interface ProductsListProps {
 
@@ -29,7 +31,9 @@ interface Product {
 }
 
 const ProductsList: FC<ProductsListProps> = () => {
-    const [products, setProducts] = useState<Product[]>(initialProducts);
+    const [productss, setProducts] = useState<Product[]>(initialProducts);
+
+    const products = useSelector(getProductsSelector);
 
     return (
         <>
@@ -37,12 +41,7 @@ const ProductsList: FC<ProductsListProps> = () => {
                 <h2>Games List</h2>
                 {products.map(item => <div key={item.id}><span>{item.title}: {item.price}</span></div>)}
             </div>
-            <button onClick={() => setProducts(prevState => [...prevState, {
-                title: 'Half Life',
-                price: 33,
-                id: 'hl'
-            }])}>Add Product
-            </button>
+
         </>
     );
 };
