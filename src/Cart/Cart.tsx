@@ -18,9 +18,9 @@ const Cart: FC = () => {
             <h5>{totalPrice}</h5>
             {cartProducts.map(item => (
                 <div key={item.id}>
-                    <span>{item.title}</span>
-                    <span>{item.amount}</span>
-                    <button onClick={() => handleRemoveFromCart(item.id)}>Remove from cart</button>
+                    <span>{item.title} </span>
+                    <span>{item.amount} </span>
+                    <button onClick={() => handleRemoveFromCart(item.id)}> Remove from cart</button>
                 </div>
             ))}
         </>

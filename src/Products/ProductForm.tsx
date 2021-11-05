@@ -1,11 +1,12 @@
 import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
-import {addProduct, Product} from "../redux/slices/products.slice";
+import {addProduct, addProductAsync, getErrorMessage, Product} from "../redux/slices/products.slice";
 import {useAppDispatch} from "../redux/hooks/store.hooks";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const ProductForm: FC = () => {
 
     const dispatch = useAppDispatch()
+    const errorMessage = useSelector(getErrorMessage);
 
     const initialStateFormProduct = {
         id: '',
@@ -23,7 +24,7 @@ const ProductForm: FC = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        dispatch(addProduct(product));
+        dispatch(addProductAsync(product));
         setProduct(initialStateFormProduct);
     }
     const {id, title, price} = product
@@ -36,6 +37,7 @@ const ProductForm: FC = () => {
                 <input type="text" placeholder="id" name="id" value={id} onChange={handleChange}/>
                 <button type="submit">Add game to the store</button>
             </form>
+            <strong>{errorMessage}</strong>
         </>
     );
 };
