@@ -44,10 +44,12 @@ const initialState: ProductSlideState = {
     errorMessage: undefined
 }
 
+//async way no. 1 with extra reducers
 export const addProductAsync = createAsyncThunk('products/addNewProduct', async (initialProducts: Product) => {
     const product = await validateProducts(initialProducts);
     return product;
 })
+
 
 const productsSlice = createSlice({
         name: 'products',
@@ -61,6 +63,7 @@ const productsSlice = createSlice({
                 products: state.products.filter(item => item.id !== action.payload)
             })
         },
+        //async way no. 1
         extraReducers: builder => {
             builder.addCase(addProductAsync.fulfilled, (state, action) => ({
                 ...state,
@@ -85,7 +88,13 @@ const productsSlice = createSlice({
 export const {addProduct, removeProduct} = productsSlice.actions
 
 export const getProductsSelector = (state: RootState) => state.products.products;
-export const getErrorMessage=(state:RootState)=>state.products.errorMessage;
+export const getErrorMessage = (state: RootState) => state.products.errorMessage;
 
 export default productsSlice.reducer;
+
+//async way no. 2
+export const addProductAsync2 = (initialProducts: Product) => async (dispatch: any) => {
+    const product = await validateProducts(initialProducts);
+    dispatch(addProduct(product));
+}
 

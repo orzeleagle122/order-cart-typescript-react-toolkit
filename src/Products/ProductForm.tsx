@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, FormEvent, useState} from 'react';
-import {addProduct, addProductAsync, getErrorMessage, Product} from "../redux/slices/products.slice";
+import {addProduct, addProductAsync2, getErrorMessage, Product} from "../redux/slices/products.slice";
 import {useAppDispatch} from "../redux/hooks/store.hooks";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -24,7 +24,7 @@ const ProductForm: FC = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        dispatch(addProductAsync(product));
+        dispatch(addProductAsync2(product));
         setProduct(initialStateFormProduct);
     }
     const {id, title, price} = product
